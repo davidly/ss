@@ -10,6 +10,7 @@ Build using a Visual Studio VCVARS64 command prompt on Windows:
 Usage: ss
 
   Send Slow -- sends commands to an Apple 1 over a serial port
+  
   arguments:
   
       -b                     -- Transfer a BASIC program; 'E000 R' is invoked for BASIC when -s specified.
