@@ -22,12 +22,12 @@ Usage: ss
       
   examples:
   
-      ss /p:3 /s:myfile.hex         (send myfile.hex over com3
-      ss /s:myfile.hex /r           (send then run the app at address 1000
-      ss /r                         (run the app already in RAM at address 1000
-      ss /b /r                      (run the BASIC app already in RAM with BASIC loaded
-      ss /s:myfile.bas /b /r        (start basic, transfer the basic app, and run it
-      ss /r:2000                    (run the app already in RAM at address 2000
+      ss /p:3 /s:myfile.hex         -- send myfile.hex over com3
+      ss /s:myfile.hex /r           -- send then run the app at address 1000
+      ss /r                         -- run the app already in RAM at address 1000
+      ss /b /r                      -- run the BASIC app already in RAM with BASIC loaded
+      ss /s:myfile.bas /b /r        -- start basic, transfer the basic app, and run it
+      ss /r:2000                    -- run the app already in RAM at address 2000
       
   notes:
   
