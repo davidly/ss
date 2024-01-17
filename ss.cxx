@@ -23,6 +23,8 @@
 // 45 gosub 4000
 // ...
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 
 #include <chrono>
@@ -192,7 +194,7 @@ void SendFile( HANDLE serialHandle, const char * acIn, bool isBASIC )
         PrintResponse( response, dwRead );
     }
 
-    for ( size_t i = 0; i < length; i++ )
+    for ( size_t i = 0; i < (size_t) length; i++ )
     {
         char c = * ( input.data() + i );
 
@@ -292,7 +294,6 @@ void RunApple1( HANDLE serialHandle, int startAddress, bool isBASIC )
 
     do
     {
-        char response[ 100 ];
         ok = ReadFile( serialHandle, response, sizeof response, &dwRead, 0 );
         if ( !ok )
         {
@@ -335,14 +336,13 @@ extern "C" int __cdecl main( int argc, char *argv[] )
     int runAddress = 0x1000;
 
     char acIn[ MAX_PATH ] = {0};
-    char acOut[ MAX_PATH ] = {0};
 
     for ( int i = 1; i < argc; i++ )
     {
         char * parg = argv[ i ];
-        int arglen = strlen( parg );
+        size_t arglen = strlen( parg );
         char c0 = parg[ 0 ];
-        char c1 = tolower( parg[ 1 ] );
+        char c1 = (char) tolower( parg[ 1 ] );
 
         if ( '-' == c0 || '/' == c0 )
         {
