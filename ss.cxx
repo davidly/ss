@@ -146,7 +146,7 @@ void SendFile( HANDLE serialHandle, const char * acIn, bool isBASIC )
         exit( 1 );
     }
 
-    printf( "input file has %d bytes\n", dwRead );
+    printf( "input file has %d bytes (%#x)\n", dwRead, dwRead );
 
     CloseHandle( hIn );
 
@@ -281,7 +281,12 @@ void RunApple1( HANDLE serialHandle, int startAddress, bool isBASIC )
 
     char acRunCommand[ 50 ];
     if ( isBASIC )
-        strcpy( acRunCommand, "run\r" );
+    {
+        if ( 0x1000 == startAddress )
+           strcpy( acRunCommand, "run\r" );
+       else
+           sprintf( acRunCommand, "run %u\r", startAddress );
+    }
     else
         sprintf( acRunCommand, "%X R\r", startAddress );
     SendBytes( serialHandle, acRunCommand );
@@ -368,7 +373,10 @@ extern "C" int __cdecl main( int argc, char *argv[] )
                 runApple1 = true;
                 if ( ':' == parg[ 2 ] )
                 {
-                    runAddress = strtol( parg + 3, 0, 16 );
+                    if ( isBASIC )
+                        runAddress = strtol( parg + 3, 0, 10 );
+                    else
+                        runAddress = strtol( parg + 3, 0, 16 );
 
                     if ( runAddress < 0 || runAddress > 0xffff )
                     {
